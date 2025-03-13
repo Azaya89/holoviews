@@ -22,12 +22,15 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           SEARCH_QUERY: 'repo:holoviz/holoviews is:issue created:2024-01-01..2024-12-31 -label:"duplicate"'
+          OUTPUT_FILE: "issue_metrics.md"
 
-      - name: Check if issue_metrics.md exists
+      - name: Verify issue_metrics.md creation
         run: |
-          if [ ! -f issue_metrics.md ]; then
-            echo "No issues found for the specified query." > issue_metrics.md
-          fi
+          if [ -f issue_metrics.md ]; then
+            echo "issue_metrics.md has been created."
+          else
+            echo "issue_metrics.md has NOT been created."
+            exit 1
 
       - name: Create issue from metrics report
         uses: peter-evans/create-issue-from-file@v4
