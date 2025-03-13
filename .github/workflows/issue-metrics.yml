@@ -31,11 +31,12 @@ jobs:
           else
             echo "issue_metrics.md has NOT been created."
             exit 1
+          fi
 
       - name: Create issue from metrics report
-        uses: peter-evans/create-issue-from-file@v4
+        uses: peter-evans/create-issue-from-file@v5
         with:
           title: Yearly Issue Metrics Report
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           content-filepath: ./issue_metrics.md
           assignees: Azaya89
